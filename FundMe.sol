@@ -19,4 +19,13 @@ contract FundMe {
             address funders = funders[fundersIndex];
             addresstoamountfunded[funders] = 0;
       }
+         //   //call
+      (bool callSuccess, ) = payable(msg.sender).call{value: address(this).balance}("");
+        require(callSuccess, "Call failed");
+    }
+     modifier onlyOwner {
+     require (msg.sender == owner, "Sender is not owner!");
+     _;
+   }
+}
  
